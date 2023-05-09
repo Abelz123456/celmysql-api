@@ -1,11 +1,11 @@
-name: 'Production Deployment 🚀'
+name: 'Staging Deployment 🚀'
 
 env:
   REGISTRY: ${{secrets.REGISTRY}}
-  REGISTRY_USER: ${{secrets.PRODUCTION_REGISTRY_USER}}
-  REGISTRY_TOKEN: ${{secrets.PRODUCTION_REGISTRY_PASS}}
-  PORTAINER_WEBHOOK: ${{secrets.PRODUCTION_CONTAINER_WEBHOOK}}
-  NAMESPACE: release
+  REGISTRY_USER: ${{secrets.STAGING_REGISTRY_USER}}
+  REGISTRY_TOKEN: ${{secrets.STAGING_REGISTRY_PASS}}
+  PORTAINER_WEBHOOK: ${{secrets.STAGING_CONTAINER_WEBHOOK}}
+  NAMESPACE: staging
   APP_NAME: celmysql-api
   TAG: latest
 
@@ -13,15 +13,17 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - release
+      - master
 
 jobs:
-  production_deploy:
+  staging_deploy:
     runs-on: self-hosted
     environment:
-      name: "Production 🚀"
-      url: "https://mysql-api.celestialsoftwaresolutuions.my.id"
+      name: "Staging"
+      url: "https://mysql-api.stg.celestialsoftwaresolutuions.my.id"
     steps:
+      - name: Whoami
+        run: whoami
       - uses: actions/checkout@v3
       - name: Login -> Docker
         run: docker login -u $REGISTRY_USER -p $REGISTRY_TOKEN $REGISTRY
