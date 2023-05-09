@@ -19,7 +19,7 @@ jobs:
   production_deploy:
     runs-on: self-hosted
     environment:
-      name: "Production 🚀"
+      name: "Production"
       url: "https://mysql-api.celestialsoftwaresolutuions.my.id"
     steps:
       - uses: actions/checkout@v3
